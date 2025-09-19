@@ -2,6 +2,10 @@
 
 <div align="center">
 
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Expo](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
 \*This repository documents my personal journey of learning **React Native with Expo\***
 
 </div>
@@ -42,6 +46,14 @@ To set it up, we install Expo Router along with dependencies:
 
 ```bash
 npx expo install expo-router react-native-safe-area-context react-native-screens
+```
+
+## 🚀 Running the Project
+
+### Development Server
+
+```bash
+npx expo start
 ```
 
 ### Configuration Steps
@@ -120,13 +132,7 @@ const styles = StyleSheet.create({
 <Text style={{ fontSize: 20, color: "green" }}>Hello</Text>
 ```
 
-#### 2. External Styles
-
-```jsx
-<Text style={styles.container}>Hello</Text>
-```
-
-#### 3. Combining Multiple Styles
+#### 2. Combining Multiple Styles
 
 ```jsx
 <Text style={[styles.text, { color: "red" }]}>Combined Styles</Text>
@@ -220,14 +226,6 @@ const styles = StyleSheet.create({
 
 ---
 
-## 🚀 Running the Project
-
-### Development Server
-
-```bash
-npx expo start
-```
-
 ### Testing Options
 
 - 📱 **Physical Device**: Use Expo Go app
@@ -258,19 +256,67 @@ From this setup, I learned how to:
 
 ---
 
-## 🔮 What's Next
+## 🧭 Navigation with Expo Router
 
-This README will continue to grow as I learn more about:
+### 📌 File-Based Routing
 
-- 🧭 **Navigation** - Advanced routing and navigation patterns
-- 🔄 **State Management** - Context API, Redux, or Zustand
-- 🌐 **API Integration** - Fetching data and handling responses
-- 📱 **Native Features** - Camera, GPS, push notifications
-- 🎨 **Advanced UI** - Animations, gestures, and custom components
-- 🧪 **Testing** - Unit tests and integration testing
-- 📦 **Deployment** - Building and publishing apps
+In React Native with Expo Router, navigation works through **file-based routing**. For example, if we create a file called `about.jsx` inside the `app/` folder, navigating to `/about` will automatically load that page.
 
----
+We can use the **Link** component (similar to `<a>` in web) to move between screens:
+
+```jsx
+<Link href="/about" style={styles.link}>
+  About
+</Link>
+```
+
+➡️ This will take us to the `about.jsx` page.
+
+> 💡 **Note**: The routing automatically maps the **file name** to the **path**, e.g., `/index` → `index.jsx`, `/about` → `about.jsx`.
+
+### 📂 Layouts and Back Navigation
+
+To handle navigation across multiple pages and show a **header with back buttons**, we use a special file called `_layout.jsx`.
+
+Unlike `index.jsx`, the `_layout.jsx` file acts as the **entry point for routing**. Inside it, we define a root layout component, usually named `RootLayout`.
+
+#### 🔑 Using Slot and Stack
+
+Expo Router provides two main options for organizing content:
+
+- **Slot** → Renders the page content (e.g., `index.jsx`) where `<Slot />` is placed
+- **Stack** → Adds a navigation stack with headers and back buttons automatically
+
+**Example:**
+
+```jsx
+export default function RootLayout() {
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: "#ddd" },
+        headerTintColor: "#333",
+      }}
+    >
+      <Stack.Screen name="index" options={{ title: "Home" }} />
+      <Stack.Screen name="about" options={{ title: "About" }} />
+      <Stack.Screen
+        name="contact"
+        options={{ title: "Contact", headerShown: false }}
+      />
+      <View>
+        <Text>Footer</Text>
+      </View>
+    </Stack>
+  );
+}
+```
+
+> 💡 **Note**:
+>
+> - `name` corresponds to the file name inside `app/`
+> - `title` is displayed in the header
+> - Back navigation works automatically through the **stack**
 
 ## 📖 Resources
 
