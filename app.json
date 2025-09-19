@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "firstproj",
     "name": "FirstProj",
     "slug": "FirstProj",
     "version": "1.0.0",
